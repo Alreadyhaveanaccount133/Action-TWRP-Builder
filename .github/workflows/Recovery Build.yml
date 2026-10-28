@@ -156,6 +156,7 @@ jobs:
       run: |
         source build/envsetup.sh
         export ALLOW_MISSING_DEPENDENCIES=true
+        sed -i '/^LOCAL_MODULE := twrp_ramdisk$/i LOCAL_REQUIRED_MODULES += task_profiles.json' bootable/recovery/prebuilt/Android.mk  # twrp_ramdisk_required_patch
         lunch ${{ github.event.inputs.MAKEFILE_NAME }}-eng && make clean && make ${{ github.event.inputs.BUILD_TARGET }}image -j$(nproc --all)
       working-directory: ${{ steps.pwd.outputs.workspace-folder }}
 
